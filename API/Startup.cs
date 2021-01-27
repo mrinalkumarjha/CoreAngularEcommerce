@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,9 +21,12 @@ namespace API
         // Di container 
         public void ConfigureServices(IServiceCollection services)
         {
+            // we are registering ProductRepository as service so that we can get it inside controller.
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllers();
 
             // add dbcontext as service
+            // ordering dosent matter here. ordering matter in middleware section
             // since we are using sqllite for development purpose so we are using sqllite.
             services.AddDbContext<StoreContext>(x => 
             x.UseSqlite(_config.GetConnectionString("DefaultConnection")));

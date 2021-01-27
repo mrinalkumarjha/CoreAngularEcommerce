@@ -69,4 +69,17 @@ add changes to remote git repo > git remote add origin https://github.com/mrinal
 
 push changes to git > git push -u origin master
 
+# Repository pattern
+	Decouple business code from data access
+	seperation of concern
+	minimise duplicate query logic
+	Currently we are injecting storecontext into controller. after repository we will use repository
+	suppose we have to get product details in 5 controller then we have to use same query in all 5 controller using
+	storedbContext.
+	also testability become easy
 
+	Repository will sit between controller and Dbcontext
+	Increased level of abstraction.
+	Increased maintability, flexibility, testability.
+	By this we have more classes and interfaces but less duplicate code.
+	Now instead of injecting storedbcontext in controller we will inject repository.
