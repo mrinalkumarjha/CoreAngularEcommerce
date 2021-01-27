@@ -116,3 +116,6 @@ push changes to git > git push -u origin master
            }
 
 # Seeding to db.
+	StoreContextSeed class is used for seeding data.
+
+# 
