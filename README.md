@@ -83,3 +83,16 @@ push changes to git > git push -u origin master
 	Increased maintability, flexibility, testability.
 	By this we have more classes and interfaces but less duplicate code.
 	Now instead of injecting storedbcontext in controller we will inject repository.
+
+# dropping existing db and create new migration
+	remove existing databse : dotnet ef database drop -p Infrastructure -s API
+	-s is for startup project
+	-p is for project file where store context available.
+
+# Remove Existing Migration
+	dotnet ef Migrations remove -p Infrastructure -s API
+
+# Add new migration
+	dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Data/Migrations
+	-o is for output directory
+	

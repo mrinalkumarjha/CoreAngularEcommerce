@@ -1,4 +1,5 @@
 
+using System.Reflection;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,16 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<Product> Products { get; set; }     
+        public DbSet<Product> Products { get; set; } 
+        public DbSet<ProductBrand> ProductBrands { get; set; }  
+        public DbSet<ProductType> ProductTypes { get; set; }  
+
+        // by this we are overriding existing behaviour of creating entity. 
+        // We are setting our own model config like required field , allow null, pkey
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }
