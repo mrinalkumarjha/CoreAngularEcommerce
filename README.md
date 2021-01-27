@@ -96,3 +96,23 @@ push changes to git > git push -u origin master
 	dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Data/Migrations
 	-o is for output directory
 	
+#  Migration code to run migration at runtime. this will update new migration as well as create db if not exists.
+
+	 using(var scope = host.Services.CreateScope())
+           {
+               var services = scope.ServiceProvider;
+               var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+               try
+               {
+                   var context = services.GetRequiredService<StoreContext>();
+                   await context.Database.MigrateAsync(); // this will apply any pending migration if pending and create db if not exists.
+
+               }
+               catch(Exception ex)
+               {
+                   var logger = loggerFactory.CreateLogger<Program>();
+                   logger.LogError(ex, "An error occured on migration");
+               }
+           }
+
+# Seeding to db.
