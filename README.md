@@ -118,4 +118,10 @@ push changes to git > git push -u origin master
 # Seeding to db.
 	StoreContextSeed class is used for seeding data.
 
-# 
+# Generic repository pattern.
+	IGenericRepository is repository pattern which abstract db from controller.
+
+# Specification pattern : this pattern gives generic repositery more flexibility over querying. like querying entity with 	where clause.
+	 need to study more on this
+	ISpecification is specification part implementation
+	SpecificationEvaluator is where we build query.
