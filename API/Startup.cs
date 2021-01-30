@@ -49,6 +49,7 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStatusCodePagesWithReExecute("/errors/{0}"); // When no endpoint match it will hit this middleware which will redirect to route /errors.
 
             app.UseHttpsRedirection(); // this redirect http request to https.
 

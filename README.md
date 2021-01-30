@@ -151,6 +151,16 @@ push changes to git > git push -u origin master
 	Inject it inside controller and use it like below.
 	return _mapper.Map<Product, ProductToReturnDto>(product); 
 
-	
+# Serving ststic content in webapi.
+	add following command inside stsrtup middleware function.
+	app.UseStaticFiles(); 
 
+# Some HTTP code and their meaning.
+	200 range   => 	OK
+	300 range   => REDIRECTION
+	400 range	=> CLIENT ERROR
+	500 range 	=> SERVER ERROR
 
+# How to redirect to custom route if no endpoint found in web api request.
+   use following method inside startup class middleware section.(configure method)
+   app.UseStatusCodePagesWithReExecute("/errors/{0}");
