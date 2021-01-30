@@ -125,3 +125,32 @@ push changes to git > git push -u origin master
 	 need to study more on this
 	ISpecification is specification part implementation
 	SpecificationEvaluator is where we build query.
+
+# Debug api. in vs code.
+	press ctrl + shift + D to select debug window. select .net core attach from top left dropdown and click on start debugging button. then you will get a prompt to select process to debug. search project name like i have given API so search API . select the process. add debugger at endpoint and hit endpoint.
+
+# Shaping data with DTO(data transfer object).
+	dtos are only used for simple data transfer it is not any business object. we keep this inside API folder.
+	We will use Automapper to map Entity to dto automatically
+
+	Step to integrate Automapper in API project
+	install Automapper.Extensions.Microsoft in api proj
+
+	Create following mapping profile.
+	public class MappingProfiles : Profile
+    {
+        public MappingProfiles()
+        {
+            CreateMap<Product, ProductToReturnDto>();
+        }
+    }
+
+	Register Automapper in startup as service..
+	services.AddAutoMapper(typeof(MappingProfiles));
+
+	Inject it inside controller and use it like below.
+	return _mapper.Map<Product, ProductToReturnDto>(product); 
+
+	
+
+

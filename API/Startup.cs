@@ -1,3 +1,5 @@
+using API.Helpers;
+using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,8 @@ namespace API
             // registering generic repository.
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             
+            // Registering automapper as service.
+            services.AddAutoMapper(typeof(MappingProfiles)); // mapping profiles is class where we have provided mappings.
             services.AddControllers();
 
             // add dbcontext as service
@@ -49,6 +53,8 @@ namespace API
             app.UseHttpsRedirection(); // this redirect http request to https.
 
             app.UseRouting(); // Enable to use us routing.
+
+            app.UseStaticFiles(); // Enabling server to serve ststic file.
 
             app.UseAuthorization();
 
