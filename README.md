@@ -164,3 +164,15 @@ push changes to git > git push -u origin master
 # How to redirect to custom route if no endpoint found in web api request.
    use following method inside startup class middleware section.(configure method)
    app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+# How to add swagger in api project
+
+  we need to add 2 package for swagger
+  search Swashbuckle.AspnetCore
+  install Swashbuckle.AspnetCore.SwaggarGen   version 5.0
+  and Swashbuckle.AspnetCore.SwaggarUI
+
+  Click restore.
+
+  > Register swagger as service.
+  

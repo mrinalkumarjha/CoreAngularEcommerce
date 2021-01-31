@@ -1,13 +1,13 @@
+using API.Extensions;
 using API.Helpers;
+using API.Middleware;
 using AutoMapper;
-using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace API
 {
@@ -23,10 +23,7 @@ namespace API
         // Di container 
         public void ConfigureServices(IServiceCollection services)
         {
-            // we are registering ProductRepository as service so that we can get it inside controller.
-            services.AddScoped<IProductRepository, ProductRepository>();
-            // registering generic repository.
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+         
             
             // Registering automapper as service.
             services.AddAutoMapper(typeof(MappingProfiles)); // mapping profiles is class where we have provided mappings.
@@ -38,6 +35,8 @@ namespace API
             services.AddDbContext<StoreContext>(x => 
             x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
 
+           services.AddApplicationServices(); // coming from extension method.
+           services.AddSwaggerDocumentation(); // coming from swagger extension
 
         }
 
@@ -45,10 +44,13 @@ namespace API
         // Places to add middleware..
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
+            // Using custom middleware.
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseStatusCodePagesWithReExecute("/errors/{0}"); // When no endpoint match it will hit this middleware which will redirect to route /errors.
 
             app.UseHttpsRedirection(); // this redirect http request to https.
@@ -58,6 +60,9 @@ namespace API
             app.UseStaticFiles(); // Enabling server to serve ststic file.
 
             app.UseAuthorization();
+
+            app.UseSwaggerDocumentation(); // from extension method.
+
 
             app.UseEndpoints(endpoints =>
             {

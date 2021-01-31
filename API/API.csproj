@@ -8,6 +8,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\infrastructure\Infrastructure.csproj"/>

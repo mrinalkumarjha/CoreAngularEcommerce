@@ -9,6 +9,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)] // for swagger . swagger wil not produce this endpoint in its documentation
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
