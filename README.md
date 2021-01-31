@@ -193,4 +193,32 @@ push changes to git > git push -u origin master
 		After this your each response will come with header "Access-Control-Allow-Origin" and value will be client application url.
 		THis has value of url which we have allowed fron api.
 
-		
+
+
+
+
+
+# ANGULAR (enable https in client project as api cors support only https).
+	For this we need some signed certificate. install .cert file inside trusted root authority
+
+	change following inside angular.json
+
+	"serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "client:build",
+            "sslKey": "ssl/server.key",
+            "sslCert": "ssl/server.crt",
+            "ssl": true
+          },
+
+
+# Add bootstrap in angular
+	ngx-bootstrap gives functionality of using bootstrap using angular component insted of jquery.
+	https://valor-software.com/ngx-bootstrap/#/ is official website of ngx bootstrsp.
+
+	install using commad : ng add ngx-bootstrap 
+
+# Add font-awsome in angular for creating icon
+	npm install font-awesome
+
