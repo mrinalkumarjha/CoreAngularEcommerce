@@ -222,3 +222,12 @@ push changes to git > git push -u origin master
 # Add font-awsome in angular for creating icon
 	npm install font-awesome
 
+# Some useful angular extension.
+	> angular language service  : it gives us autocomplete intelisence
+	> angular snippet by john papa : for fast coding.
+	> Prettier : help us to format code
+	> Bracket Pair Colorizer 2 : help us to identify start end bracket as it colour it.
+	> Tslint : gives linting support.
+	
+
+
