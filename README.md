@@ -175,4 +175,22 @@ push changes to git > git push -u origin master
   Click restore.
 
   > Register swagger as service.
-  
+
+
+# How to enable CORS.
+	     // adding CORS inside service
+           services.AddCors(opt => {
+               opt.AddPolicy("CorsPolicy", policy => {
+                   policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+               });
+           });
+
+
+		// in middleware
+		app.UseCors("CorsPolicy");
+
+
+		After this your each response will come with header "Access-Control-Allow-Origin" and value will be client application url.
+		THis has value of url which we have allowed fron api.
+
+		
