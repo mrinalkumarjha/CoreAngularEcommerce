@@ -232,7 +232,25 @@ push changes to git > git push -u origin master
 
 # Some useful command in angular.
 ng g c nav-bar --skip-tests : create component without test file.
-
+ng g m core  : to create module
+ng g c shop --flat --skip-tests : create comp without folder without test.
+ng g s shop --flat --skip-tests : create service
 
 # Use JSON to Ts online tool for comberting json object to ts
 
+# Structure of angular app
+
+	App Module		Core module
+					Shared module
+					Feature Module
+
+# angular service:
+  as we inject httpclient into appcomponent contructure , it is not best practice to do so. so we do this via services.
+
+  services are decorated with @injectable 
+
+  @Injectable({
+  providedIn: 'root'  // as appModule is our root module this service will be available to app module. we dont need to declare this inside provider array.
+})
+	# services are singalton and it will vaailable untill app is running. it wont be destroyed if we leave component.
+	
