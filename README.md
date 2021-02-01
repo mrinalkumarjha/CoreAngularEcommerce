@@ -228,6 +228,11 @@ push changes to git > git push -u origin master
 	> Prettier : help us to format code
 	> Bracket Pair Colorizer 2 : help us to identify start end bracket as it colour it.
 	> Tslint : gives linting support.
-	
 
+
+# Some useful command in angular.
+ng g c nav-bar --skip-tests : create component without test file.
+
+
+# Use JSON to Ts online tool for comberting json object to ts
 
