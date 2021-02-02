@@ -254,3 +254,9 @@ ng g s shop --flat --skip-tests : create service
 })
 	# services are singalton and it will vaailable untill app is running. it wont be destroyed if we leave component.
 	
+
+# Get data from router
+	// inject ActivatedRoute inside constructor
+  	constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute) { }
+	// use following method to get id.
+	this.activatedRoute.snapshot.paramMap.get('id')
