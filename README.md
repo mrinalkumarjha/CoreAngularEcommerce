@@ -271,3 +271,20 @@ ng g s shop --flat --skip-tests : create service
 
   # ngx-toaster : for notification in ui.
 	npm install toastr
+
+# breadcrumb 
+	using xng breadcrumb package.
+	npm install --save xng-breadcrumb
+
+# Bootstratp theme change
+
+  we use bootswatch for changing bootstrap theme. bootswatch.com
+  npm install bootswatch
+
+  to enable this add bootswatch css to angular.json . here sketchy is theme name
+     "./node_modules/bootswatch/dist/sketchy/bootstrap.min.css",
+	 "./node_modules/bootswatch/dist/united/bootstrap.min.css",  -- for united theme
+
+# Ngx spinner for loader
+
+ npm install ngx-spinner

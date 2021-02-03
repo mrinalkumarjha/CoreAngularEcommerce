@@ -18,7 +18,7 @@ export class ShopComponent implements OnInit {
   types: IType[];
   shopParams = new ShopParams();
   totalCount: number = 0;
-  @ViewChild('search', {static: true}) searchTerm : ElementRef; // to use #search template ref var inside here.
+  @ViewChild('search', {static: false}) searchTerm : ElementRef; // to use #search template ref var inside here.
  
   sortOptions = [
     {name: 'Alphabetical', value:'name'},
