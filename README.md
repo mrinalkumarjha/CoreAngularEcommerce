@@ -260,3 +260,14 @@ ng g s shop --flat --skip-tests : create service
   	constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute) { }
 	// use following method to get id.
 	this.activatedRoute.snapshot.paramMap.get('id')
+
+# Httpinterceptor
+  We use this error handling.
+  create a httpinterceptor and add them inside app module provider.
+
+    providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true}
+  ],
+
+  # ngx-toaster : for notification in ui.
+	npm install toastr
