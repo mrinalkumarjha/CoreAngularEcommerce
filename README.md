@@ -197,6 +197,10 @@ push changes to git > git push -u origin master
 	add StackExchange.redis in infrastructure project
 	varsion 2.0.6
 
+	DOwnload redeis from https://redis.io/download
+
+	redis is for linux mainly so to use redis in wondow use chocklaty to install in window.
+
 
 
 
