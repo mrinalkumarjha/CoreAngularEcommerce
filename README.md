@@ -200,7 +200,17 @@ push changes to git > git push -u origin master
 	DOwnload redeis from https://redis.io/download
 
 	redis is for linux mainly so to use redis in wondow use chocklaty to install in window.
+	If you dont want to install any tool in window use any free online solution.
 
+	To use online redis server use gitlab
+	endpoint: redis-17032.c251.east-us-mz.azure.cloud.redislabs.com:17032
+	pass: A48HG0ea0GjfSzWGJO0uuNSrkRYnkhOu
+
+	https://app.redislabs.com/
+	testarcs1@gmail.com
+	Mrinal"1234
+
+	To view data install RedisInsight 
 
 
 
