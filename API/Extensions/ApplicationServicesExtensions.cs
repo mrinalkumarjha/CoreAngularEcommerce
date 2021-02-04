@@ -17,6 +17,9 @@ namespace API.Extensions
             // registering generic repository.
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            // Registering Ibasket as service 
+            services.AddScoped<IBasketRepository, BasketRepository>();
+
              // This is way to handle error list in case of Bad request error.
             services.Configure<ApiBehaviorOptions>(options => {
                     options.InvalidModelStateResponseFactory = actionContext => 

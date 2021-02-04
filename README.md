@@ -193,6 +193,11 @@ push changes to git > git push -u origin master
 		After this your each response will come with header "Access-Control-Allow-Origin" and value will be client application url.
 		THis has value of url which we have allowed fron api.
 
+# Redis for caching in api
+	add StackExchange.redis in infrastructure project
+	varsion 2.0.6
+
+
 
 
 
