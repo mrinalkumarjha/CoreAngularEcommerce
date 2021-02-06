@@ -307,3 +307,12 @@ ng g s shop --flat --skip-tests : create service
 # Ngx spinner for loader
 
  npm install ngx-spinner
+
+# Behaviour subject:
+	behaviour subject is one kind of observable which is used for multicasting. it is for multiple subscriber.
+
+	async pipe used to subscribe and unsubscribe from observale in template itself rather then component.
+
+# Package UUID 
+	For generating unique identifier in angular use UUID npm package 
+	npm install uuid
