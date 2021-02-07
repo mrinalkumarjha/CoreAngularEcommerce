@@ -216,7 +216,6 @@ push changes to git > git push -u origin master
 
 
 
-
 # ANGULAR (enable https in client project as api cors support only https).
 	For this we need some signed certificate. install .cert file inside trusted root authority
 
