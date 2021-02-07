@@ -3,6 +3,7 @@ using API.Helpers;
 using API.Middleware;
 using AutoMapper;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,10 @@ namespace API
             // since we are using sqllite for development purpose so we are using sqllite.
             services.AddDbContext<StoreContext>(x => 
             x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+
+            // add identiy db context as service
+            services.AddDbContext<AppIdentityDbContext>(x => 
+            x.UseSqlite(_config.GetConnectionString("IdentityConnection")));
 
             // Adding redis connnection settiong
             services.AddSingleton<ConnectionMultiplexer>(c => {

@@ -212,6 +212,38 @@ push changes to git > git push -u origin master
 
 	To view data install RedisInsight 
 
+# Identity
+	ASP.net identity is used to add users and manage authentication and authorization.
+	will use UserManager and SignInManager service provided by identity.
+	UserManager to query user from idsentity db
+	SignInManager is used for signin.
+
+# Setting Identity 
+	Install following package insode Infrastructure proj.
+	1> Microsoft.AspNetCore.Identity   Varsion:2
+	2> Microsoft.AspNetCore.Identity.EntityFrameworkCore  Version 3.1.11  .. this version should same as runtime
+	3> Microsoft.IdentityModel.Tokens   version 5.6.0
+	4> System.IdentityModel.Tokens.Jwt   version 5.6.0
+
+	Install following package insode API proj.
+	1> Microsoft.AspNetCore.Authentication.JwtBearer    Version: 3.1.11 we install this in api proj as api will manage authenticationm.
+
+	Install following package insode Core proj.
+	1>Microsoft.Extensions.Identity.Stores      		Version : 3.1.11
+
+# Adding migration for identity context inside seperate folder.
+	dotnet ef migrations add IdentityInitial -p Infrastructure -s API -o Identity/Migrations -c AppIdentityDbContext
+
+	-s is startup project
+	-c is context name
+	-o is output directory
+	-p is project name in which migration need to be created.
+
+	To remove migration
+	dotnet ef migrations remove  -p Infrastructure -s API  -c AppIdentityDbContext
+
+	
+
 
 
 
