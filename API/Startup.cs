@@ -51,7 +51,9 @@ namespace API
             });
 
            services.AddApplicationServices(); // coming from extension method.
+           services.AddIdentityServices(); // coming from extension
            services.AddSwaggerDocumentation(); // coming from swagger extension
+
 
            // adding CORS
            services.AddCors(opt => {
