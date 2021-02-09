@@ -242,6 +242,7 @@ push changes to git > git push -u origin master
 	To remove migration
 	dotnet ef migrations remove  -p Infrastructure -s API  -c AppIdentityDbContext
 
+# Adding JWT token
 	
 
 

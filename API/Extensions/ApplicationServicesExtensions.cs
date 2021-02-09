@@ -2,6 +2,7 @@ using System.Linq;
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,9 @@ namespace API.Extensions
 
             // Registering Ibasket as service 
             services.AddScoped<IBasketRepository, BasketRepository>();
+
+            // token service
+            services.AddScoped<ITokenService, TokenService>();
 
              // This is way to handle error list in case of Bad request error.
             services.Configure<ApiBehaviorOptions>(options => {

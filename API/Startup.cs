@@ -51,7 +51,7 @@ namespace API
             });
 
            services.AddApplicationServices(); // coming from extension method.
-           services.AddIdentityServices(); // coming from extension
+           services.AddIdentityServices(_config); // coming from extension
            services.AddSwaggerDocumentation(); // coming from swagger extension
 
 
@@ -84,6 +84,8 @@ namespace API
             app.UseStaticFiles(); // Enabling server to serve ststic file.
 
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication(); // must before UseAuthorization
 
             app.UseAuthorization();
 
