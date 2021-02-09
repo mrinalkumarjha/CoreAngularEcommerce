@@ -97,7 +97,7 @@ namespace API.Controllers
             UserName = registerDto.Email,
             Email = registerDto.Email
         };
-        var result = await _userManager.CreateAsync(user);
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
         if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
         return new UserDto
@@ -107,6 +107,14 @@ namespace API.Controllers
             Email = user.Email
         };
 
+    }
+
+    [HttpDelete("delete")]
+    public async Task<ActionResult> DeleteUser(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user != null) await _userManager.DeleteAsync(user);
+        return Ok();
     }
 
 
