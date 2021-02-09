@@ -244,7 +244,19 @@ push changes to git > git push -u origin master
 
 # Adding JWT token
 	
+ Added IdentityServiceExtensions
 
+
+# API Validation
+	We will use data annotation to validate model.
+	We should not rely on client for validation. so we should apply validation on server side.
+	We can add validation to database entity also but adding validation on entity will add extra responsilibity to entity class.
+	So we will add validation attributes on Dto level. DTO is POCO class so its ok to add validation responsibility here.
+
+	we will use https://regexlib.com/ for creating regular expression for validation
+
+# Update swagger for identity
+  we can now use authorize button on top right corner and provice token to authorize. swagger will use same token in rest endpoint.
 
 
 
