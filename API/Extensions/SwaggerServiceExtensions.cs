@@ -15,6 +15,27 @@ namespace API.Extensions
                     Title = "Skinet Api",
                     Version = "V1"
                 });
+                
+                // tell swagger about security configuration
+                var securitySchema = new OpenApiSecurityScheme
+                {
+                    Description = "JWT Auth Bearer Scheme",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header, // where the authentication need to be provided
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                c.AddSecurityDefinition("Bearer", securitySchema);
+                var securityRequirement = new OpenApiSecurityRequirement {{securitySchema, new[] {"Bearer"}}};
+                c.AddSecurityRequirement(securityRequirement);
+
+
             });
 
             return services;

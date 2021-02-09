@@ -18,6 +18,8 @@ namespace API.Helpers
                 .ForMember(pdto => pdto.PictureUrl, p => p.MapFrom<ProductUrlResolver>()); // this will get imageurl from ProductUrlResolver
 
             CreateMap<Address, AddressDto>().ReverseMap(); // ReverseMap is used in we want to map object vice versa. like address to addressdto and addressdto to address.
+            CreateMap<CustomerBasketDto, CustomerBasket>().ReverseMap();
+            CreateMap<BasketItemDto, BasketItem>();
                 
             
 
