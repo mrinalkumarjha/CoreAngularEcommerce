@@ -10,7 +10,10 @@ export class LoadingInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        this.busyService.busy();
+        if (!req.url.includes('emailexists')){
+            // we are executing spinner only if request is not for email check
+            this.busyService.busy();
+        }
         return next.handle(req)
         .pipe(
             delay(1000),

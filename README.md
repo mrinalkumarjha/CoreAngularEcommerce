@@ -360,3 +360,18 @@ ng g s shop --flat --skip-tests : create service
 # Package UUID 
 	For generating unique identifier in angular use UUID npm package 
 	npm install uuid
+
+# Reactive form
+	To use reactive form we need to import ReactiveFormsModule.
+
+# async validation
+	async validation we have used to validate if email exists in system. async validation is added in registration form.
+	async validation will fire only once sync validation is passed.
+
+# Auth Guard:
+	To prevent unauthorized user in angular we will use authGuard.
+	authguard is router feature which provide facility to prevent routes activation.
+
+	syntax to create guard:
+
+	ng g g auth --skip-tests

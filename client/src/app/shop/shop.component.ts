@@ -13,11 +13,11 @@ import {ShopParams} from '../shared/models/shopParams';
 })
 export class ShopComponent implements OnInit {
 
-  products : IProduct[];
+  products: IProduct[];
   brands: IBrand[];
   types: IType[];
   shopParams = new ShopParams();
-  totalCount: number = 0;
+  totalCount = 0;
   @ViewChild('search', {static: false}) searchTerm : ElementRef; // to use #search template ref var inside here.
  
   sortOptions = [
@@ -34,7 +34,6 @@ export class ShopComponent implements OnInit {
     this.getTypes();
   }
 
-
   getProducts(){
     this.shopService.getProducts(this.shopParams).subscribe((response: IPagination) => {
       this.products = response.data;
@@ -42,7 +41,7 @@ export class ShopComponent implements OnInit {
       this.shopParams.pageSize = response.pageSize;
       this.totalCount = response.count;
     }, error => {
-      console.log(error)
+      console.log(error);
     });
   }
 
@@ -100,5 +99,8 @@ export class ShopComponent implements OnInit {
     this.shopParams = new ShopParams();
     this.getProducts();
   }
+
+
+  
 
 }
