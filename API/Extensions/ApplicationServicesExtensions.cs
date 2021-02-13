@@ -2,7 +2,7 @@ using System.Linq;
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Identity.Services;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,9 +10,12 @@ namespace API.Extensions
 {
     public static class ApplicationServicesExtensions
     {
+        
         // As startup file was becoming so bulky so created this extension method and moved some services here.
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             // we are registering ProductRepository as service so that we can get it inside controller.
             services.AddScoped<IProductRepository, ProductRepository>();
             // registering generic repository.
@@ -23,6 +26,9 @@ namespace API.Extensions
 
             // token service
             services.AddScoped<ITokenService, TokenService>();
+
+            // order service
+            services.AddScoped<IOrderService, OrderService>();
 
              // This is way to handle error list in case of Bad request error.
             services.Configure<ApiBehaviorOptions>(options => {

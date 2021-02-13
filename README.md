@@ -259,6 +259,31 @@ push changes to git > git push -u origin master
   we can now use authorize button on top right corner and provice token to authorize. swagger will use same token in rest endpoint.
 
 
+# Add Order migration
+	dotnet ef migrations add OrderEntityAdded -p Infrastructure -s API  -c StoreContext
+
+	once api project start migration will apply as we added code.
+
+# Unit of work pattern
+	since with generic repository we have seperate instance of dbContext at run time for each repo.
+	which could lead to partial update of entity. like while saving one entity could succeed and one
+	could failed.
+
+	also we have to inject multiple repo in controller like product repo, order repo as generic repo.
+
+	So unit of work is designed to work into this problem.
+	uow will create dbcontext instance itself, and uow will be responsible for creating instance
+	of repository.
+	so in case of uow each of repository wont be creating each instance of dbContext.
+	uow wil maintain transaction. in case of partial update all transaction will be rolled back.
+
+	
+
+
+
+
+
+
 
 
 # ANGULAR (enable https in client project as api cors support only https).

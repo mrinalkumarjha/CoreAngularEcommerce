@@ -20,6 +20,7 @@ namespace API.Helpers
             CreateMap<Address, AddressDto>().ReverseMap(); // ReverseMap is used in we want to map object vice versa. like address to addressdto and addressdto to address.
             CreateMap<CustomerBasketDto, CustomerBasket>().ReverseMap();
             CreateMap<BasketItemDto, BasketItem>();
+            CreateMap<AddressDto, Core.Entities.OrderAggregate.Address>();
                 
             
 
