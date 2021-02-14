@@ -264,6 +264,9 @@ push changes to git > git push -u origin master
 
 	once api project start migration will apply as we added code.
 
+# drop db
+	dotnet ef  database drop -p Infrastructure -s API  -c StoreContext
+
 # Unit of work pattern
 	since with generic repository we have seperate instance of dbContext at run time for each repo.
 	which could lead to partial update of entity. like while saving one entity could succeed and one
