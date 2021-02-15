@@ -403,3 +403,7 @@ ng g s shop --flat --skip-tests : create service
 	syntax to create guard:
 
 	ng g g auth --skip-tests
+
+# angular cdk:
+	we will use angular component development kit to add steper form
+	ng add @angular/cdk

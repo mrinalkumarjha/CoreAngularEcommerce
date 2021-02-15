@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, from, of, ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import { IUser } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AccountService {
   // we have replaced BehavoiurSubject to REplaySubject as BehavoiurSubject was emiting initial value immidiately
   // Which was causing auth guard to redirect to login even user is login. as it is getting null initially due to behaviourSub
   // Now Auth guard will wait for value as replaysubject does not emit initial value.
-  private currentUserSource = new ReplaySubject(1);
+  private currentUserSource = new ReplaySubject<IUser>(1);
 
   currentUser$ = this.currentUserSource.asObservable();
 

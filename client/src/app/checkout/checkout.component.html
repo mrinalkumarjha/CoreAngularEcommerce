@@ -1,10 +1,26 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-8">
-           only authorized user should able to see this...
+           <app-stepper [linearModeSelected]="false" #appSteper>
+               <cdk-step [label]="'Address'">
+                    <app-checkout-address [checkoutForm]="checkOutForm"></app-checkout-address>
+               </cdk-step>
+
+                <cdk-step [label]="'Delivery'">
+                     <app-checkout-delivery [checkoutForm]="checkOutForm"></app-checkout-delivery>
+                </cdk-step>
+
+                <cdk-step [label]="'Review'">
+                    <app-checkout-review></app-checkout-review>
+                </cdk-step>
+
+                <cdk-step [label]="'Payment'">
+                    <app-checkout-payment></app-checkout-payment>
+                </cdk-step>
+           </app-stepper>
         </div>
         <div class="col-4">
-            
+            <app-order-totals></app-order-totals>
         </div>
     </div>
 </div>
