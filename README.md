@@ -290,7 +290,11 @@ push changes to git > git push -u origin master
 
 	add nuget package stripe.net 34.19 to infrastructure project.
 
-	
+	test card:
+	4242 4242 4242 4242
+
+
+
 
 
 

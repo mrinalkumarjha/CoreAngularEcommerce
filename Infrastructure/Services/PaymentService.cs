@@ -57,9 +57,23 @@ namespace Infrastructure.Services
             var options = new PaymentIntentCreateOptions
             {
                 Amount =(long) basket.Items.Sum(i => i.Quantity * (i.Price * 100)) + (long) shippingPrice * 100,
-                Currency = "usd",
+                Currency = "inr",
                 PaymentMethodTypes = new List<string>() {"card"}
             };
+            options.Shipping = new ChargeShippingOptions {
+                 Name = "mrinal jha",
+                    Address = new AddressOptions
+                    {
+                        Line1 = "hindon vihar noida",
+                        PostalCode = "201305",
+                        City = "Noida",
+                        State = "UP",
+                        Country = "INDIA",
+                    }
+            };
+
+            options.Description = "Mrinal soft development services.";
+
             intent = await service.CreateAsync(options);
 
             basket.PaymentIntentId = intent.Id;
