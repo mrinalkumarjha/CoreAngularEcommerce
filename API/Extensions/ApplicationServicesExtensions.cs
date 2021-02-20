@@ -29,6 +29,7 @@ namespace API.Extensions
 
             // order service
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
              // This is way to handle error list in case of Bad request error.
             services.Configure<ApiBehaviorOptions>(options => {

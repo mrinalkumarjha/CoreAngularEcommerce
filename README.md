@@ -280,7 +280,18 @@ push changes to git > git push -u origin master
 	so in case of uow each of repository wont be creating each instance of dbContext.
 	uow wil maintain transaction. in case of partial update all transaction will be rolled back.
 
+# Setting stripe payment
+	got to stripe.com and signup
+	id:testarcs1@gmail.com
+	pass: m...1234
+
+	publishable_key is used in client
+	secret key is used in server.
+
+	add nuget package stripe.net 34.19 to infrastructure project.
+
 	
+
 
 
 
