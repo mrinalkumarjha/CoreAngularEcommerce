@@ -11,7 +11,7 @@ export class CheckoutSuccessComponent implements OnInit {
 
   order: IOrder;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
     // we can get navigation extra data inside constructor not on init
     const navigation = this.router.getCurrentNavigation();
     const state = navigation && navigation.extras && navigation.extras.state;
@@ -19,7 +19,6 @@ export class CheckoutSuccessComponent implements OnInit {
       this.order = state as IOrder;
     }
     else{
-      
     }
   }
 

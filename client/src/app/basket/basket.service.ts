@@ -147,7 +147,6 @@ export class BasketService {
  }
 
  private calculateTotals(): void {
-   debugger;
    const basket = this.getCurrentBasketValue();
    const shipping = this.shipping;
    const subtotal = basket.items.reduce( (a, b) => (b.price * b.quantity) + a, 0);
