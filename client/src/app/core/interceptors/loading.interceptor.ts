@@ -10,13 +10,19 @@ export class LoadingInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if (!req.url.includes('emailexists')){
-            // we are executing spinner only if request is not for email check
-            this.busyService.busy();
+        if(req.method === 'POST' && req.url.includes('orders')) {
+            // here we are skipping loader for post order
+            return next.handle(req);
         }
+        if (req.url.includes('emailexists')){
+            // we are executing spinner only if request is not for email check
+            //this.busyService.busy();
+            return next.handle(req);
+        }
+        this.busyService.busy();
         return next.handle(req)
         .pipe(
-            delay(100),
+            // delay(5),
 
             finalize(() => {
                         this.busyService.idle();

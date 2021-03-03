@@ -293,6 +293,13 @@ push changes to git > git push -u origin master
 	test card:
 	4242 4242 4242 4242
 
+	Test card to check insufficient fund
+	4000 0000 0000 9995
+
+	High security card
+	4000 0027 6000 3184	
+
+
 
 
 
