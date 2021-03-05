@@ -288,10 +288,27 @@ push changes to git > git push -u origin master
 	publishable_key is used in client
 	secret key is used in server.
 
+
 	add nuget package stripe.net 34.19 to infrastructure project.
+
+	account id acct_1IMrBOJzRQfscld3
+
+# stripe listen : use this command to listen to webhook locally.
+	before this we need to install stripe cli using scoop package manager.
+
+		install stripe cli using following command
+	scoop bucket add stripe https://github.com/stripe/scoop-stripe-cli.git
+    scoop install stripe
+
+	whsecret: whsec_XupnkKtw1tUebKtLvs98hhxyw7JlS0pr
+
+# stripe listen -f  https://localhost:5001/api/Payments/webhook --skip-verify
+	after running this if stripe sends any envent our webhook controller will be invoked.
 
 	test card:
 	4242 4242 4242 4242
+	Declined card
+	4000 0000 0000 0002 
 
 	Test card to check insufficient fund
 	4000 0000 0000 9995
