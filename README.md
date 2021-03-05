@@ -318,6 +318,10 @@ push changes to git > git push -u origin master
 
 
 
+# Performance of api
+	We implement caching in api to enhance performance
+
+	for caching we have created CachedAttribute (custom attribute) inside helper filder of api.
 
 
 

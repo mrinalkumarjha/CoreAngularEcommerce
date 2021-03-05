@@ -14,6 +14,9 @@ namespace API.Extensions
         // As startup file was becoming so bulky so created this extension method and moved some services here.
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            // we added cache service as singalton as cached data will be for all request
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             // we are registering ProductRepository as service so that we can get it inside controller.
