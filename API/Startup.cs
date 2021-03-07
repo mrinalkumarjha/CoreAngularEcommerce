@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace API
 {
@@ -81,7 +83,15 @@ namespace API
 
             app.UseRouting(); // Enable to use us routing.
 
-            app.UseStaticFiles(); // Enabling server to serve ststic file.
+            app.UseStaticFiles(); // Enabling server to serve ststic file. it serve file from wwwroot folder
+
+            // following is to serve image from content folder
+            app.UseStaticFiles(new StaticFileOptions {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Content")
+                ),
+                RequestPath = "/content"
+            });
 
             app.UseCors("CorsPolicy");
 
@@ -95,6 +105,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // following setting for angular as we are serving angular page from api
+                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

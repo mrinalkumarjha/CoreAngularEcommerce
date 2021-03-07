@@ -450,3 +450,32 @@ ng g s shop --flat --skip-tests : create service
 # angular cdk:
 	we will use angular component development kit to add steper form
 	ng add @angular/cdk
+
+
+# Angular build configuration
+	outputHashing inside angular.json will create randome filename of js file on build. this will force 
+	browser to load new file if browser has cached js.
+
+	Things to change before production
+
+	1: copy paste all key from environment.ts to environment.prod.ts
+	2: Remove delay from loading interceptor.
+	3: move node modules styles reference from angular.json to styles.css so that angular build will 
+		compiled proper sequence so that once css will load after in sequence.
+
+	4: Change outputpath from angular.json as per your need. this path is where you want to put your build file.
+	5: set setting inside startup.cs if angular is being served using api
+
+# development mode build
+	 ng build :  this will create build file and place inside wwwroot folder of api
+
+	 in development mode JIT compiler is used anf file size is bigger
+
+	now we can see angular app running at https://localhost:5001/
+
+# production mode build
+	 ng build --prod :  this will create build file and place inside wwwroot folder of api
+
+	 in production build AOT compiler is used and file size is minimal here.
+
+	now we can see angular app running at https://localhost:5001/
