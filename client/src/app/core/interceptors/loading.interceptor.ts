@@ -14,6 +14,11 @@ export class LoadingInterceptor implements HttpInterceptor {
             // here we are skipping loader for post order
             return next.handle(req);
         }
+
+        if(req.method === 'DELETE') {
+            return next.handle(req);
+        }
+
         if (req.url.includes('emailexists')){
             // we are executing spinner only if request is not for email check
             //this.busyService.busy();
