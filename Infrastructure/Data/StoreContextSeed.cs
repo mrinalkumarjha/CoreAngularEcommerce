@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
@@ -17,10 +18,12 @@ namespace Infrastructure.Data
         {
             try
             {
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
                  // Seeding product brand
                 if(!context.ProductBrands.Any())
                 {
-                    var brandData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
+                    var brandData = File.ReadAllText(path + @"/Data/SeedData/brands.json");
 
                     // serialize brand json data into ProductBrands obj
                     var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
@@ -34,7 +37,7 @@ namespace Infrastructure.Data
                 // Seeding product types
                  if(!context.ProductTypes.Any())
                 {
-                    var typesData = File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
+                    var typesData = File.ReadAllText(path + @"/Data/SeedData/types.json");
 
                     // serialize brand json data into ProductType obj
                     var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
@@ -48,7 +51,7 @@ namespace Infrastructure.Data
                 //  // Seeding product 
                 if(!context.Products.Any())
                 {
-                    var productData = File.ReadAllText("../Infrastructure/Data/SeedData/products.json");
+                    var productData = File.ReadAllText(path + @"/Data/SeedData/products.json");
 
                     // serialize brand json data into ProductBrands obj
                     var products = JsonSerializer.Deserialize<List<Product>>(productData);
@@ -62,7 +65,7 @@ namespace Infrastructure.Data
                 //  // Seeding deliverymethod 
                 if(!context.DeliveryMethods.Any())
                 {
-                    var dmData = File.ReadAllText("../Infrastructure/Data/SeedData/delivery.json");
+                    var dmData = File.ReadAllText(path + @"/Data/SeedData/delivery.json");
 
                     // serialize brand json data into ProductBrands obj
                     var delMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);

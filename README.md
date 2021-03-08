@@ -379,6 +379,27 @@ push changes to git > git push -u origin master
 	dotnet ef migrations add  "postgres identity initials" -p infrastructure -s api -c AppIdentityDbContext -o Identity/Migrations
 
 
+# api pre deployment work
+
+	command to publish; dotnet publish -c Release -o publish skinet.sln
+	run this inside root dire of solution. this will 
+
+	add following line inside api itemgroup so that content directory will also be included inside publish dir.
+	<Content Include="Content\**" CopyToPublishDirectory="PreserveNewest" />
+
+	add following line inside infrastructure csproj to include seed data
+	 <None Include="Data\SeedData\**" CopyToOutputDirectory="PreserveNewest" />
+
+	 now publish code
+	 dotnet publish -c Release -o publish skinet.sln
+
+	 now seed file will be available inside debug and release so that system can get data from debug folder .
+	 
+
+
+
+	
+
 
 	
 
