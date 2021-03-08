@@ -44,11 +44,17 @@ namespace API
             x.UseSqlite(_config.GetConnectionString("IdentityConnection")));
 
             // Adding redis connnection settiong
-            services.AddSingleton<ConnectionMultiplexer>(c => {
-                var configuration = ConfigurationOptions.Parse(
-                    _config.GetConnectionString("Redis"), true);
-                configuration.Password =  _config.GetConnectionString("RedisPassword");
+            // services.AddSingleton<ConnectionMultiplexer>(c => {
+            //     var configuration = ConfigurationOptions.Parse(
+            //         _config.GetConnectionString("Redis"), true);
+            //     configuration.Password =  _config.GetConnectionString("RedisPassword");
                     
+            //     return ConnectionMultiplexer.Connect(configuration);
+            // });
+
+             services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
             });
 

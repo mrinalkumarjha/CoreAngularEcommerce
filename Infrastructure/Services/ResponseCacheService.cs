@@ -10,7 +10,7 @@ namespace Infrastructure.Services
     {
         private readonly IDatabase _database;
 
-        public ResponseCacheService(ConnectionMultiplexer redis)
+        public ResponseCacheService(IConnectionMultiplexer redis)
         {
             _database = redis.GetDatabase();
 

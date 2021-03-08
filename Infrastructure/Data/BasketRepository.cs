@@ -10,7 +10,7 @@ namespace Infrastructure.Data
     public class BasketRepository : IBasketRepository
     {
         private readonly IDatabase _database;
-        public BasketRepository(ConnectionMultiplexer redis)
+        public BasketRepository(IConnectionMultiplexer redis)
         {
             _database = redis.GetDatabase(); // here we have get redis db connection to use.
         }
