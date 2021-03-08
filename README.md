@@ -358,6 +358,28 @@ push changes to git > git push -u origin master
 			- 8080:8080
 
 		run command: docker-compose up --detach
+
+
+		> install postgre provider from nuget
+		Npgsql.EntityFrameworkCore.PostgreSQL
+
+		update project to 5
+		update dotnet tool dotnet tool update -g dotnet-ef --version 5.0.3
+
+
+# migration for postgres
+	delete old migration folder ; right click and delete folder.
+
+	delete old migration folder for identity also ; right click and delete folder.
+
+	add postgre migration
+	dotnet ef migrations add  "postgres initials" -p infrastructure -s api -c StoreContext -o Data/Migrations	
+
+	add migration for identity also
+	dotnet ef migrations add  "postgres identity initials" -p infrastructure -s api -c AppIdentityDbContext -o Identity/Migrations
+
+
+
 	
 
 
