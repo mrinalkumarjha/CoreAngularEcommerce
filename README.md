@@ -577,6 +577,7 @@ this will update local angular to 11
 check outdated package with npm outdated and update them also to wanted version.
 
 then use tool npx to update all library in singal command.
+or use individually for ex:  ng update rxjs
 
 npx -p npm-check-updates ncu -u
 
