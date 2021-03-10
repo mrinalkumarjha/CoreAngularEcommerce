@@ -340,7 +340,7 @@ push changes to git > git push -u origin master
 	    // "Redis": "redis-17032.c251.east-us-mz.azure.cloud.redislabs.com:17032",
         // "RedisPassword": "A48HG0ea0GjfSzWGJO0uuNSrkRYnkhOu"
 
-	#  install postgre
+#  install postgre
 		goto https://hub.docker.com/  : here we can look for application need to run inside docker container
 		search postgres in search bar
 		copy yamal file command and paste inside docker-compose.
@@ -394,8 +394,14 @@ push changes to git > git push -u origin master
 	 dotnet publish -c Release -o publish skinet.sln
 
 	 now seed file will be available inside debug and release so that system can get data from debug folder .
-	 
 
+
+# deploy application to linux server (digital ocean)
+	we will use digital ocean account for deploying to linux server
+	https://www.digitalocean.com/
+
+	id; mrinalkumarjha@ymail.com
+	pass; m...1234
 
 
 	
@@ -554,3 +560,25 @@ ng g s shop --flat --skip-tests : create service
 	 in production build AOT compiler is used and file size is minimal here.
 
 	now we can see angular app running at https://localhost:5001/
+
+# Upgrade to angular 11
+
+install angular globally
+npm install @angular/cli -g
+this will install latest angular globally
+
+> ng update @angular/core @angular/cli
+this will update local angular to 11
+
+> ng update
+>ng update @angular/cdk
+>ng update rxjs
+
+check outdated package with npm outdated and update them also to wanted version.
+
+then use tool npx to update all library in singal command.
+
+npx -p npm-check-updates ncu -u
+
+
+
