@@ -23,6 +23,7 @@ dotnet watch run : this will watch changes and restart server.
 	Microsoft.EntityFrameworkCore    : varsion 3.1.1
 	Microsoft.EntityFrameworkCore.SqLite    : version 3.1.1
 	
+	Microsoft.EntityFrameworkCore.Design : this package is required in startup project for migration
 
 
 # Add migration
@@ -95,6 +96,146 @@ push changes to git > git push -u origin master
 # Add new migration
 	dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Data/Migrations
 	-o is for output directory
+
+# one to one relationship in Core5
+ by adding  public Horse Horse { get; set; } in samurai class ef automatically
+ determine relationship between horse and samurai. this is one to one relationship.
+
+
+public class Horse
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int SamuraiId { get; set; }
+
+    }
+
+	public class Samurai
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Quote> Quotes { get; set; } = new List<Quote>();
+        public List<Battle> Battles { get; set; } = new List<Battle>();
+        public Horse Horse { get; set; }
+    }
+
+# Ef core power tools visual studio extension.
+	model visulization and migration ui for EF core. 
+	open visual studio > extension > search ef core power tools > download it.
+	Restart vs.
+
+	now right click on project where dbcontext file available > select ef core power tools
+	> Add Db context model diagram.
+
+
+# many to many relationship in Core5
+
+ if we creaate a link using list in property. ef automatically determine many to  many relation.
+ see example below.
+
+ public class Battle
+    {
+        public int BattleId { get; set; }
+        public string Name { get; set; }
+        public List<Samurai> Samurais { get; set; } = new List<Samurai>(); 
+		// many to many rel . ef core create BattleSamurai table automatically as it is convention based. we have also option to override existing convention.
+
+    }
+
+	public class Samurai
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Quote> Quotes { get; set; } = new List<Quote>();
+        public List<Battle> Battles { get; set; } = new List<Battle>();
+    }
+
+# many to many relationship with additional column in Core5
+	to achieve this we create seperate class and configure it in dbcontext onModelcreating.
+
+	  class SamuraiBattle
+    {
+        public int SamuraiId { get; set; }
+        public int BattleId { get; set; }
+        public DateTime DateJoined { get; set; }
+
+    }
+
+	configure it 
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Samurai>()
+                .HasMany(s => s.Battles)
+                .WithMany(b => b.Samurais)
+                .UsingEntity<SamuraiBattle>
+                (bs => bs.HasOne<Battle>().WithMany(),
+                bs => bs.HasOne<Samurai>().WithMany())
+                .Property(bs => bs.DateJoined)
+                .HasDefaultValueSql("getdate()");
+
+        }
+
+#  tagging sql in ef
+by tagging we can easily identify our sql in sql profiler.
+
+	EFCore5.Data.AppContext _context = new EFCore5.Data.AppContext();
+	_context.Samurais.Add(new Samurai { Name = "mrinal" });
+	_context.Samurais.TagWith("Add Samurai method");
+	_context.SaveChanges();
+
+# use find()
+	use .find(1) method of linq if willing to find by id.
+
+# use AsNoTracking to prevent traking option of entity framework.
+
+	use AsNoTracking to prevent traking option of entity framework. when we dont use AsNoTracking
+	ef cache it within scope of dbcontext object for SaveChanges(). so if we dont want to save object after getting list we can use AsNoTracking to prevent tracking.
+	
+	var blogs = context.Blogs
+		.AsNoTracking()
+		.ToList();
+
+# Add, Update, Attach in ef core.
+	to update record in disconnected scenario use attach.
+
+# projection in ef.
+	projection is done using select method of linq. by projection we can return selected property
+	of object.
+
+	var someProp = context.samurais.select(s => new {s.id, s.name}).tolist();
+
+	or casting list to defined type.
+	var someProp = context.samurais.select(s => new IdAndName(s.id, s.name)).tolist();
+
+# Method to load related data in ef.
+	Eager loading: use include to get related object. EFcore 5 can use filtered include.
+
+	_context.samurais.include(s=>s.quote).tolist();
+	
+	Ecplicit loading: this is something like when we have some data in memory and want to load related data. following are way to retrive related data for objects already in memory.
+
+	var samurai = _context.samurai.find(1);
+	_context.entry(samurais).collection(s=>s.quote).load();
+	or
+	_context.entry(samurais).reference(s=>s.horse).load();
+
+	Lazy loading:  Loading data on fly
+
+# working with sp in code first.
+
+	1: create a sp.
+	2: create empty migration.
+	3: add sp inside migration UP method.
+	    migrationbuilder.sql(@"Create proc .....");
+	4. call it
+		var samurais = -context.samurais.FromSqlRaw("EXEC dbo.spname {0}", "paramss").tolist();
+	or
+	var samurais = -context.samurais.FromSqlInterpolated
+	($"EXEC dbo.spname {paramss}").tolist();
+
+# Executing raw sql or sp
+
+	-context.database.executesqlRaw("EXEC spname {0}", params);
 	
 #  Migration code to run migration at runtime. this will update new migration as well as create db if not exists.
 
@@ -151,7 +292,7 @@ push changes to git > git push -u origin master
 	Inject it inside controller and use it like below.
 	return _mapper.Map<Product, ProductToReturnDto>(product); 
 
-# Serving ststic content in webapi.
+# Serving static content in webapi.
 	add following command inside stsrtup middleware function.
 	app.UseStaticFiles(); 
 
@@ -582,4 +723,125 @@ or use individually for ex:  ng update rxjs
 npx -p npm-check-updates ncu -u
 
 
+# rxjs 
 
+# observale
+	observable is blue print of stream. and we can create instance of stream using subscribe on it.
+	observable is just a defination of http stream.
+
+
+when we create observable we add dollar $ symbal. its not necessary but its a convention to understand.
+1. const interval$ = interval(1000);
+	here interval$ is observable of type number. which will emit sequenceal number to its subscriber.
+	when we subscribe to interval$ observable it create stream of data and emit to its subscriber.
+	in this case subscriver of interval will receive sequential number in interval of 1 sec.
+
+	we can subscribe to interval like this
+	interval$.subscribe(val => console.log('stream 1 '+ val ));  // stream one as we have subscribed.
+
+	interval$.subscribe(val => console.log('stream 2 '+ val ));  // stream 2 as we have subscribed again.
+
+2. const interval$ = timer(3000, 1000);
+
+    interval$.subscribe(val => console.log('stream 1 '+ val ));
+
+	timer is observale which also emit sequential value but it gives us an option to initial waiting.
+	in this case it will wait for 3 sec initially and then will start emiting sequantial value.
+
+
+3.  const click$ = fromEvent(document, 'click');
+
+    click$.subscribe(event => console.log(event ));
+
+	fromEvent gives us flexibility to create stream of event. as in this case subscriber will
+	get click event of document object.
+
+
+4. Unsubscribe from observable.
+
+	    const timer = interval(1000);
+    const sub = timer.subscribe(num => console.log(num));
+
+
+  setTimeout(() => sub.unsubscribe(), 5000);
+
+  We can unsubscribe from observable.once unsubscribed from observable obserber will stop 
+  getting stream value.
+
+  in above case we are unsubscribing from observable after 5 sec using setTimeout.
+
+
+5. Creating your own observable.
+
+	const http$ = new  Observable(
+       observer => {
+
+        fetch('/api/courses')
+        .then(resp => {
+          return resp.json();
+        })
+        .then(body => {
+          observer.next(body);
+          observer.complete();
+        })
+        .catch(err => {
+          observer.next(err);
+        })
+
+       });
+
+
+       http$.subscribe(
+         course => {console.log(course)},
+         ()=>{},
+         () => console.log('completed')
+         );
+
+6. RXJS OPERATOR
+An operator is a pure function which takes in observable as input and the output is also an observable.
+
+1. Pipe : pipe is used to chain operators.
+
+2. Of : This operator will take in the arguments passed and convert them to observable.
+
+3. map : map is transformation operator. In the case of map operator, a project function is applied on each value on the source Observable and the same output is emitted as an Observable. You use map to transform a collection of items into a collection of different items. 
+
+function multiplyByTwo(collection) {
+    return collection.map(function (value) {
+        return value * 2;
+    });
+}
+
+var a = of(1, 2, 3, 4, 0, 5);
+var b = multiplyByTwo(a); // a new observable [2, 4, 6, 8, 0, 10]
+
+4. shareReplay : if we use async pipe to subscribe observale then if multiple subscription is 
+happening to same observable then muitiple call to database happen.
+so to share same response to multiple subscriber we will use shareReplay.
+
+  	beginnerCourses$: Observable<Course[]>;
+    advanceCourses$: Observable<Course[]>;
+
+
+	const http$ = createObservable('api/courses');
+        const courses$: Observable<Course[]> = http$.pipe(
+            tap(() => console.log('http req executed.')),
+            map(res =>  Object.values(res['payload'])),
+            shareReplay()
+        );
+
+		this.beginnerCourses$ = courses$.pipe(
+            map((courses: Course[]) => courses
+            .filter(course => course.category == 'BEGINNER'))
+        )
+
+        this.advanceCourses$ = courses$.pipe(
+            map((courses: Course[]) =>  courses
+            .filter(course => course.category == 'ADVANCED'))
+        )
+
+ in above example we have created two observale  beginnerCourses$, advanceCourses$ which will
+ subscribes using async pipe in component. as two times we are subscribing there will be two net
+ work call. so to share same network call to multiple subscriber we will use shareReplay() here.
+
+ 
