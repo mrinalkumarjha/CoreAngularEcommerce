@@ -14,13 +14,19 @@ SQLite by alexcvzz
 
 nuget gallery  by pcislo
 
+dotnet new sln : for adding new solution
+dotnet new api -o API : for creating api proj
 
 dotnet sln add API -- to add api project to sln
+
+dotnet sln list -- to list project inside solution
 
 in vs code type shift + ctrl + p and type Generate asset for build and debug and press enter. 
 this will create .vscode folder along with launch.json. which is useful in development.
 
 dotnet watch run : this will watch changes and restart server.
+
+# Course git repo : https://github.com/TryCatchLearn/Skinet
 
 
 # ADD ENTITYFRAMEWORK PACKAGE
