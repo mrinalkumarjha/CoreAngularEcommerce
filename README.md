@@ -16,6 +16,30 @@ this will create .vscode folder along with launch.json. which is useful in devel
 
 dotnet watch run : this will watch changes and restart server.
 
+To use https in local through local certificate: goto setting > off SSL certificate verification.
+
+To check valid cerificate run command inside api folder : dotnet dev-certs https
+
+1: product controller is first controller.
+2: product entity created in same api proj
+3: StoreContext is created for storing entity.
+
+install following tools globally in system for migration
+
+use command : dotnet tool list -g  to check if this tool is installed
+
+dotnet tool install --global dotnet-ef --version 6.0.1
+
+run migration in ecommerce dir:
+dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Data/Migrations -c StoreContext
+
+to create db: this will apply migration and create db id not available.
+dotnet ef  database update -p Infrastructure -s API  -c StoreContext
+
+To check db in vs code:
+open comand palate : ctrl +shift+ p
+type sqllite > select open database > select db.
+
 
 # ADD ENTITYFRAMEWORK PACKAGE
 
@@ -33,6 +57,8 @@ for vs code
 package: dotnet tool install --global dotnet-ef --version 3.1.11
 
 Command: dotnet ef migrations add MyFirstMigration -o Data/Migrations
+
+for more help : dotnet-ef -h
 
 for vs
 package:  Microsoft.EntityFrameworkCore.Tools
