@@ -2,11 +2,17 @@
 ecommerce application build on dotnet core and angular
 
 # Extension needed to add for vs code
-c sharp
-c sharp extension
-material icon theme
-nuget-package-manager
-SQLite
+c# by microsoft
+
+c sharp extension  by JosKreativ
+
+material icon theme by philip (optional)
+
+nuget package manager by jmrog
+
+SQLite by alexcvzz
+
+nuget gallery  by pcislo
 
 
 dotnet sln add API -- to add api project to sln
