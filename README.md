@@ -8,6 +8,7 @@ material icon theme
 nuget-package-manager
 SQLite
 
+docker
 
 dotnet sln add API -- to add api project to sln
 
@@ -30,8 +31,12 @@ use command : dotnet tool list -g  to check if this tool is installed
 
 dotnet tool install --global dotnet-ef --version 6.0.1
 
-run migration in ecommerce dir:
+run migration in ecommerce dir: This migration will automatically applied when Api project will be created. You can also run it manually.
+
+-- for store db
 dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Data/Migrations -c StoreContext
+-- for identity db
+dotnet ef Migrations Add InitialCreate  -p Infrastructure -s API -o Identity/Migrations -c AppIdentityDbContext
 
 to create db: this will apply migration and create db id not available.
 dotnet ef  database update -p Infrastructure -s API  -c StoreContext
@@ -39,6 +44,44 @@ dotnet ef  database update -p Infrastructure -s API  -c StoreContext
 To check db in vs code:
 open comand palate : ctrl +shift+ p
 type sqllite > select open database > select db.
+
+in left panel you should have now SQLITE EXPLORER
+
+Some more important command
+
+dotnet new -l : to list all project template available
+dotnet restore : to restore all project and dependency.it uses NuGet to restore dependencies as well as project-specific tools that are specified in the project file. In most cases, you don't need to explicitly use the dotnet restore command, since a NuGet restore is run implicitly if necessary when you run the following commands:
+
+dotnet new
+dotnet build
+dotnet build-server
+dotnet run
+dotnet test
+dotnet publish
+dotnet pack
+
+# add database on 	https://app.redislabs.com/ if redis error coming.
+
+# client project start
+	1: npm install in client dir
+	2: run npm start after node package installed. 
+	3: browse at https://localhost:4200/
+	4: if ssl error comes use this link to resolve.https://stackoverflow.com/questions/59352651/angular-default-app-ng-serve-privacy-error-in-chrome-neterr-cert-authority-i
+
+	id: mrinalkumarjha@ymail.com
+	pass: Admin@123
+
+	# card details for payment
+		test card:
+	4242 4242 4242 4242
+	Declined card
+	4000 0000 0000 0002 
+
+	Test card to check insufficient fund
+	4000 0000 0000 9995
+
+	High security card
+	4000 0027 6000 3184	
 
 
 # ADD ENTITYFRAMEWORK PACKAGE
@@ -70,8 +113,9 @@ Command: add-migration InitialMigration
 dotnet ef database update
 
 # Adding classlibrary
-> dotnet new classlib -o Core -- create new class lib project. core will contain domain
-> dotnet new classlib -o Infrastructure -- new class lib
+> dotnet new classlib -o Core -- create new class lib project. core will contain domain entity like product , order, brand
+
+> dotnet new classlib -o Infrastructure -- new class lib  . This project will contain ef context file, migrations.
 
 # PROJECT DEPENDENCIES (Architecture)
 
@@ -80,12 +124,21 @@ API ==> Infrastructure ==> Core
 > Add infrastructure reference in api
 dotnet add reference ..//infrastructure
 
-> Add core reference in infrastructure
+> Add core reference in infrastructure. run command from infra dir.
 dotnet add reference ..//core
+
+# Hide bin & obj from dir
+	file > preferences > settings 
+	now add following two pattern inside files:Exclude section. this will hide from sol.
+
+		**/bin
+		**/obj
 
 # Add project to version control GIT
 
 git init  > to add project to git
+
+git add to add in tracking
 
 comit to local repo
 
@@ -237,6 +290,18 @@ push changes to git > git push -u origin master
 	Mrinal"1234
 
 	To view data install RedisInsight 
+
+	redis local connectionstring: "Redis": "localhost"
+
+	install redis server in local. we can install redis in docker locally.
+
+	1: install docker desktop in system.
+	2: copy  docker compose file and paste at  solution location which came inside student asset download.
+	3: this file contains services we need locally. we have used redis to store data and redis commander to view data.
+	4: Run docker compose : docker-compose up -d  (-d is deatach mode to run services in background). it will pull redis and install inside docker container.
+
+	
+
 
 # Identity
 	ASP.net identity is used to add users and manage authentication and authorization.
