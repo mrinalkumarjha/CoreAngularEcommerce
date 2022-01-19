@@ -477,61 +477,25 @@ by tagging we can easily identify our sql in sql profiler.
 	for caching we have created CachedAttribute (custom attribute) inside helper filder of api.
 
 
-# Installing postgreSql & redis in docker
-	since dotnet core 5 does not support mysql so we are using open source relational db postgreSql.
-	we can check database providers here : https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli
+# Installing sql server  in docker or local
+		> install sql provider from nuget in infra project
 
-	1: download docker desktop : https://www.docker.com/products/docker-desktop
-	2: put docker-compose.yml file inside root
-
-	run docker command in root
-	docker-compose up --detach
-
-	if above command is successfule you can now see one container named by skinet is running inside docker.
-
-		following are cloud redis config details.
-	    // "Redis": "redis-17032.c251.east-us-mz.azure.cloud.redislabs.com:17032",
-        // "RedisPassword": "A48HG0ea0GjfSzWGJO0uuNSrkRYnkhOu"
-
-# setup sql server
-
-#  install postgre
-		goto https://hub.docker.com/  : here we can look for application need to run inside docker container
-		search postgres in search bar
-		copy yamal file command and paste inside docker-compose.
-
-				db:
-			image: postgres
-			restart: always
-			environment:
-			POSTGRES_PASSWORD: example
-
-		adminer:
-			image: adminer
-			restart: always
-			ports:
-			- 8080:8080
-
-		run command: docker-compose up --detach
-
-
-		> install postgre provider from nuget
-		Npgsql.EntityFrameworkCore.PostgreSQL
+		Microsoft.EntityFrameworkCore.SqlServer
 
 		update project to 5
 		update dotnet tool dotnet tool update -g dotnet-ef --version 5.0.3
 
 
-# migration for postgres
+# migration for sql server
 	delete old migration folder ; right click and delete folder.
 
 	delete old migration folder for identity also ; right click and delete folder.
 
 	add postgre migration
-	dotnet ef migrations add  "postgres initials" -p infrastructure -s api -c StoreContext -o Data/Migrations	
+	dotnet ef migrations add  "sqlserver store initials" -p infrastructure -s api -c StoreContext -o Data/Migrations	
 
 	add migration for identity also
-	dotnet ef migrations add  "postgres identity initials" -p infrastructure -s api -c AppIdentityDbContext -o Identity/Migrations
+	dotnet ef migrations add  "sqlserver identity initials" -p infrastructure -s api -c AppIdentityDbContext -o Identity/Migrations
 
 
 # api pre deployment work

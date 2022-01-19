@@ -32,6 +32,8 @@ namespace Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+           modelBuilder.Entity<Order>().Property(p => p.Subtotal).HasColumnType("decimal(18,4)");
+
             // Added this as for sqllite only as sqllite does not provide decimal
             if(Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
@@ -52,5 +54,6 @@ namespace Infrastructure.Data
                 }
             }
         }
-    }
+     }
+}
 }

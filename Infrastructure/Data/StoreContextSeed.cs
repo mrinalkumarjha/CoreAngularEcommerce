@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Entities.OrderAggregate;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
@@ -20,60 +21,72 @@ namespace Infrastructure.Data
             {
                 var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-                 // Seeding product brand
-                if(!context.ProductBrands.Any())
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    var brandData = File.ReadAllText(path + @"/Data/SeedData/brands.json");
-
-                    // serialize brand json data into ProductBrands obj
-                    var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
-                    foreach (var item in brands)
+                    // Seeding product brand
+                    if (!context.ProductBrands.Any())
                     {
-                        context.ProductBrands.Add(item);
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductBrands ON;");
+                        var brandData = File.ReadAllText(path + @"/Data/SeedData/brands.json");
+
+                        // serialize brand json data into ProductBrands obj
+                        var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
+                        foreach (var item in brands)
+                        {
+                            context.ProductBrands.Add(item);
+                        }
+                        
+                        await context.SaveChangesAsync();
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductBrands OFF;");
                     }
-                    await context.SaveChangesAsync();
-                }
 
-                // Seeding product types
-                 if(!context.ProductTypes.Any())
-                {
-                    var typesData = File.ReadAllText(path + @"/Data/SeedData/types.json");
-
-                    // serialize brand json data into ProductType obj
-                    var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
-                    foreach (var item in types)
+                    // Seeding product types
+                    if (!context.ProductTypes.Any())
                     {
-                        context.ProductTypes.Add(item);
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductTypes ON;");
+                        var typesData = File.ReadAllText(path + @"/Data/SeedData/types.json");
+
+                        // serialize brand json data into ProductType obj
+                        var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
+                        foreach (var item in types)
+                        {
+                            context.ProductTypes.Add(item);
+                        }
+                        await context.SaveChangesAsync();
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductTypes OFF;");
                     }
-                    await context.SaveChangesAsync();
-                }
 
-                //  // Seeding product 
-                if(!context.Products.Any())
-                {
-                    var productData = File.ReadAllText(path + @"/Data/SeedData/products.json");
-
-                    // serialize brand json data into ProductBrands obj
-                    var products = JsonSerializer.Deserialize<List<Product>>(productData);
-                    foreach (var item in products)
+                    //  // Seeding product 
+                    if (!context.Products.Any())
                     {
-                        context.Products.Add(item);
+                        var productData = File.ReadAllText(path + @"/Data/SeedData/products.json");
+
+                        // serialize brand json data into ProductBrands obj
+                        var products = JsonSerializer.Deserialize<List<Product>>(productData);
+                        foreach (var item in products)
+                        {
+                            context.Products.Add(item);
+                        }
+                        await context.SaveChangesAsync();
                     }
-                    await context.SaveChangesAsync();
-                }
 
-                //  // Seeding deliverymethod 
-                if(!context.DeliveryMethods.Any())
-                {
-                    var dmData = File.ReadAllText(path + @"/Data/SeedData/delivery.json");
-
-                    // serialize brand json data into ProductBrands obj
-                    var delMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
-                    foreach (var item in delMethods)
+                    //  // Seeding deliverymethod 
+                    if (!context.DeliveryMethods.Any())
                     {
-                        context.DeliveryMethods.Add(item);
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.DeliveryMethods ON;");
+                        var dmData = File.ReadAllText(path + @"/Data/SeedData/delivery.json");
+
+                        // serialize brand json data into ProductBrands obj
+                        var delMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+                        foreach (var item in delMethods)
+                        {
+                            context.DeliveryMethods.Add(item);
+                        }
+                        await context.SaveChangesAsync();
+                        context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.DeliveryMethods OFF;");
                     }
-                    await context.SaveChangesAsync();
+
+                    transaction.Commit();
                 }
             }
             catch (Exception ex)

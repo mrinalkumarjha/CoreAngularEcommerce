@@ -35,32 +35,21 @@ namespace API
 
             // add dbcontext as service
             // ordering dosent matter here. ordering matter in middleware section
-            // since we are using sqllite for development purpose so we are using sqllite.
-            // services.AddDbContext<StoreContext>(x => 
-            // x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<StoreContext>(x => 
-            x.UseNpgsql(_config.GetConnectionString("DefaultConnection")));
+             services.AddDbContext<StoreContext>(x => 
+            x.UseSqlServer(_config.GetConnectionString("StoreSqlServerConnection")));
 
             // add identiy db context as service
-            // services.AddDbContext<AppIdentityDbContext>(x => 
-            // x.UseSqlite(_config.GetConnectionString("IdentityConnection")));
-
-                services.AddDbContext<AppIdentityDbContext>(x => 
-            x.UseNpgsql(_config.GetConnectionString("IdentityConnection")));
+            services.AddDbContext<AppIdentityDbContext>(x => 
+            x.UseSqlServer(_config.GetConnectionString("IdentitySqlServerConnection")));
 
             // Adding redis connnection settiong
-            // services.AddSingleton<ConnectionMultiplexer>(c => {
-            //     var configuration = ConfigurationOptions.Parse(
-            //         _config.GetConnectionString("Redis"), true);
-            //     configuration.Password =  _config.GetConnectionString("RedisPassword");
-                    
-            //     return ConnectionMultiplexer.Connect(configuration);
-            // });
-
+ 
              services.AddSingleton<IConnectionMultiplexer>(c =>
             {
-                var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
+                var configuration = ConfigurationOptions.Parse(
+                    _config.GetConnectionString("Redis"), true);
+                     configuration.Password =  _config.GetConnectionString("RedisPassword");
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
