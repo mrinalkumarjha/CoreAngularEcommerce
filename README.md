@@ -1,6 +1,37 @@
 # CoreAngularEcommerce
 ecommerce application build on dotnet core and angular
 
+# How to run sql version in local system
+1: setup redis connection setting o updated one. i have used one of cloud redis provider.
+	"Redis": "redis-15652.c282.east-us-mz.azure.cloud.redislabs.com:15652",
+    "RedisPassword": "SuuTgkrC8ySYs2jzeNSAzI11GRJio9cZ"
+
+2: setup sql connection for both store context and identity context in appsettings.Development.json
+
+3: run dotnet watch run from api directory from terminal.(This will automatically create database in sql server if connection string is correct).
+
+4: Run NPM INSTALL(if running first time) ,
+		 NPM START from client directory to run angular proj.
+		 
+5: login in angular app using following credential.
+			id: mrinalkumarjha@ymail.com
+			pass: Admin@123
+
+6: For payment	use following test card detail.
+	test card:
+	4242 4242 4242 4242
+	Declined card
+	4000 0000 0000 0002 
+
+	Test card to check insufficient fund
+	4000 0000 0000 9995
+
+	High security card
+	4000 0027 6000 3184	
+
+7: If ssl error comes while doing payment:
+	if ssl error comes use this link to resolve.https://stackoverflow.com/questions/59352651/angular-default-app-ng-serve-privacy-error-in-chrome-neterr-cert-authority-i
+
 # Extension needed to add for vs code
 c# by microsoft
 
