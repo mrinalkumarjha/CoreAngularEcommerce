@@ -493,6 +493,8 @@ by tagging we can easily identify our sql in sql profiler.
 	    // "Redis": "redis-17032.c251.east-us-mz.azure.cloud.redislabs.com:17032",
         // "RedisPassword": "A48HG0ea0GjfSzWGJO0uuNSrkRYnkhOu"
 
+# setup sql server
+
 #  install postgre
 		goto https://hub.docker.com/  : here we can look for application need to run inside docker container
 		search postgres in search bar
