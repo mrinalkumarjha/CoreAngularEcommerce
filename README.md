@@ -563,7 +563,11 @@ by tagging we can easily identify our sql in sql profiler.
 
 
 	
+# To not get certificate errors we will also need to do the following:
 
+1.  Create a new directory called “ssl” in the client folder.
+
+2.  Copy the server.crt and server.key files from the StudentAssets folder into the newly created ssl folder:
 
 
 
