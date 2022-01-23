@@ -77,7 +77,7 @@ dotnet watch run : this will watch changes and restart server.
 
 1 add following package from nuget package
 	Microsoft.EntityFrameworkCore    : varsion 3.1.1
-	Microsoft.EntityFrameworkCore.SqLite    : version 3.1.1
+	Microsoft.EntityFrameworkCore.SqServer    : version 3.1.1
 	
 	Microsoft.EntityFrameworkCore.Design : this package is required in startup project for migration
 
