@@ -22,6 +22,7 @@ namespace Infrastructure.Services
         public TokenService(IConfiguration config, UserManager<AppUser> userManager)
         {
             this._config = config;
+            _userManager = userManager;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
         }
         public async Task<string> CreateToken(AppUser appUser)
