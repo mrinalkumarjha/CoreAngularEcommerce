@@ -21,6 +21,9 @@ ecommerce application build on dotnet core and angular
 			id: mrinalkumarjha@ymail.com
 			pass: Admin@123
 
+		Admin User: mrinalkumarjha1@gmail.com
+			pass : Admin@123
+
 6: For payment	use following test card detail. Use any future expiry and cvv.
 	
 	4242 4242 4242 4242
@@ -64,6 +67,11 @@ dotnet watch run : this will watch changes and restart server.
 
 # Course git repo : https://github.com/TryCatchLearn/Skinet
 
+
+# some command:
+
+	To drop database from dotnet cli.
+	dotnet ef database drop -p Infrastructure -s API -c AppIdentityDbContext
 
 # ADD ENTITYFRAMEWORK PACKAGE
 

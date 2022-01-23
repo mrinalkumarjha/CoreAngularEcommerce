@@ -35,9 +35,10 @@ namespace API
 
                    // identity sees code
                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                   var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
                    await identityContext.Database.MigrateAsync(); // here identity db will be created
-                   await AppIdentityDbContextSeed.SeedUsersAsync(userManager); // addind seed for user
+                   await AppIdentityDbContextSeed.SeedUsersAsync(userManager, roleManager); // addind seed for user
                }
                catch(Exception ex)
                {
