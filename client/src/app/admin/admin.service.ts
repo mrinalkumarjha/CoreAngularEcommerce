@@ -23,5 +23,25 @@ export class AdminService {
   deleteProduct(id: number) {
     return this.http.delete(this.baseUrl + 'products/' + id);
   }
+
+  // image related methods.
+
+  uploadImage(file: File, id: number) {
+    const formData = new FormData();
+    formData.append('photo', file, 'image.png');
+    return this.http.put(this.baseUrl + 'products/' + id + '/photo', formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  deleteProductPhoto(photoId: number, productId: number) {
+    return this.http.delete(this.baseUrl + 'products/' + productId + '/photo/' + photoId);
+  }
+
+  setMainPhoto(photoId: number, productId: number) {
+    return this.http.post(this.baseUrl + 'products/' + productId + '/photo/' + photoId, {});
+  }
+
   
 }

@@ -573,6 +573,13 @@ by tagging we can easily identify our sql in sql profiler.
 	IFormFile represent file sent with httprequest.
 
 	Used CopyToAsync  method to upload file async.
+
+	in client app:
+	used gallary lib for multiple pic.
+	npm install @kolkov/ngx-gallery 
+
+	used croper
+	npm install ngx-dropzone ngx-image-cropper
 	
 
 
