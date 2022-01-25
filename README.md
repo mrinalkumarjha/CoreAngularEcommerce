@@ -567,6 +567,12 @@ by tagging we can easily identify our sql in sql profiler.
 	pass; m...1234
 
 
+# Adding upload image in api and angular
+
+	we have used IFormFile interface from  Microsoft.AspNetCore.Http.Features nuget package to use upload functionality.
+	IFormFile represent file sent with httprequest.
+
+	Used CopyToAsync  method to upload file async.
 	
 
 

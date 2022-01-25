@@ -21,6 +21,7 @@ namespace API.Extensions
             
             // we are registering ProductRepository as service so that we can get it inside controller.
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
             // registering generic repository.
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
