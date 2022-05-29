@@ -25,9 +25,14 @@ vuejs is javascript framework.
   
 # 4 way of binding we have in vue js.
   1.String interpolation:  {{}}
+  
   2.Method binding: @click
+  
   3.Attribute binding: :href
+  
   4. Two way binding: v-model
+  
+  
 
 
   
