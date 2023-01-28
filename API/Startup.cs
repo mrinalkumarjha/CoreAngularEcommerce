@@ -49,7 +49,7 @@ namespace API
             {
                 var configuration = ConfigurationOptions.Parse(
                     _config.GetConnectionString("Redis"), true);
-                     configuration.Password =  _config.GetConnectionString("RedisPassword");
+                     //configuration.Password =  _config.GetConnectionString("RedisPassword");
                 return ConnectionMultiplexer.Connect(configuration);
             });
 

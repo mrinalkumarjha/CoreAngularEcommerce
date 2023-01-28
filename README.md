@@ -11,10 +11,21 @@ ecommerce application build on dotnet core and angular
 2: setup sql connection for both store context and identity context in appsettings.Development.json
 
 3: run dotnet watch run from api directory from terminal.(This will automatically create database in sql server if connection string is correct).
+	make sure dot net 5  sdk is installed
 
 4: Run NPM INSTALL(if running first time) ,
 
-		 NPM START from client directory to run angular proj.
+		 NPM START from client directory to run angular proj. make sure node 16.X.X is installed
+
+4.1: install docker desktop
+	  run docker compose in deattach mode using command : docker-compose up --detach
+	  this will up redis and all service inside docker.
+	  Change redis value to localhost in appsetting.development.json  and comment configuration.Password line in startup.cs 
+
+	  Open commander to check redis data : http://localhost:8081/
+	  id: root
+	  pass: secret
+
 
 5: login in angular app using following credential.
 
