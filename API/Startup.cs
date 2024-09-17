@@ -49,7 +49,7 @@ namespace API
             {
                 var configuration = ConfigurationOptions.Parse(
                     _config.GetConnectionString("Redis"), true);
-                     //configuration.Password =  _config.GetConnectionString("RedisPassword");
+                     configuration.Password =  _config.GetConnectionString("RedisPassword");
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
@@ -59,11 +59,25 @@ namespace API
 
 
            // adding CORS
-           services.AddCors(opt => {
-               opt.AddPolicy("CorsPolicy", policy => {
-                   policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-               });
-           });
+        //    services.AddCors(opt => {
+        //        opt.AddPolicy("CorsPolicy", policy => {
+        //            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+        //        });
+        //    });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+
+                    //you can configure your custom policy
+                        builder.AllowAnyOrigin()
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
 
         }
 
@@ -80,7 +94,7 @@ namespace API
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}"); // When no endpoint match it will hit this middleware which will redirect to route /errors.
 
-            app.UseHttpsRedirection(); // this redirect http request to https.
+           // app.UseHttpsRedirection(); // this redirect http request to https.
 
             app.UseRouting(); // Enable to use us routing.
 
@@ -94,7 +108,8 @@ namespace API
                 RequestPath = "/content"
             });
 
-            app.UseCors("CorsPolicy");
+            //app.UseCors("CorsPolicy");
+             app.UseCors();
 
             app.UseAuthentication(); // must before UseAuthorization
 
