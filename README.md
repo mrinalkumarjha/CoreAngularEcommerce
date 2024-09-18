@@ -15,7 +15,8 @@ ecommerce application build on dotnet core and angular
 
 4: Run NPM INSTALL(if running first time) ,
 
-		 NPM START from client directory to run angular proj. make sure node 12.X.X and npm 6.14 is installed. this is when angular version is 11.
+		 NPM START from client directory to run angular proj. make sure node 12.X.X, angular cli is 11.2.19 and npm 6.14 is installed. this is when angular version is 11.
+   			cli u can check with ng v.  if it is not there install it using commang . npm i @angular/cli@11.2.19
 
 4.1: install docker desktop
 	  run docker compose in deattach mode using command : docker-compose up --detach
