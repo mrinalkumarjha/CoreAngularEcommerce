@@ -1,43 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AccountService } from './account/account.service';
-import { BasketService } from './basket/basket.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from "./layout/header/header.component";
+import { ShopComponent } from "./features/shop/shop.component";
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, ShopComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-
-  title = 'SkyNet';
-
-  constructor(private basketService: BasketService, private accountService: AccountService) {
-
-  }
-
-  ngOnInit(): void {
-    this.loadBasket();
-    this.loadCurrentUser();
-  }
-
-  loadCurrentUser(){
-    const token = localStorage.getItem('token');
-    this.accountService.loadCurrentUser(token).subscribe(() => {
-      }, error => {
-        console.log(error);
-      });
-  }
-
-  loadBasket(): void{
-        // checking basketid availablity in localstorage.
-        const basketId = localStorage.getItem('basket_id');
-        if (basketId) {
-          this.basketService.getBasket(basketId).subscribe(() => {
-          }, error => {
-            console.log(error);
-          });
-        }
-  }
-
-
+export class AppComponent {
+  title = 'Skinet';
 }

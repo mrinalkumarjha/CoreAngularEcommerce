@@ -1,54 +1,16 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { delay, finalize, identity } from 'rxjs';
 import { BusyService } from '../services/busy.service';
-import { Injectable } from '@angular/core';
-import { delay, finalize } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
-@Injectable()
-export class LoadingInterceptor implements HttpInterceptor {
-    constructor(private busyService: BusyService) {}
+export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
+  const busyService = inject(BusyService);
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  busyService.busy();
 
-        if(req.method === 'POST' && req.url.includes('orders')) {
-            // here we are skipping loader for post order
-            return next.handle(req);
-        }
-
-        if(req.method === 'DELETE') {
-            return next.handle(req);
-        }
-
-        if (req.url.includes('emailexists')){
-            // we are executing spinner only if request is not for email check
-            //this.busyService.busy();
-            return next.handle(req);
-        }
-        this.busyService.busy();
-        return next.handle(req)
-        .pipe(
-            // delay(5),
-
-            finalize(() => {
-                        this.busyService.idle();
-                    })
-
-        );
-
-        // if (req.method === 'POST' && req.url.includes('orders')) {
-        //     return next.handle(req);
-        // }
-        // if (req.method === 'DELETE') {
-        //     return next.handle(req);
-        // }
-        // if (req.url.includes('emailexists')) {
-        //     return next.handle(req);
-        // }
-        // this.busyService.busy();
-        // return next.handle(req).pipe(
-        //     finalize(() => {
-        //         this.busyService.idle();
-        //     })
-        // );
-    }
-}
+  return next(req).pipe(
+    (environment.production ? identity : delay(500)),
+    finalize(() => busyService.idle())
+  )
+};

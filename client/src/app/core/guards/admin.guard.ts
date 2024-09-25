@@ -1,26 +1,18 @@
-import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import {AccountService} from '../../account/account.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AccountService } from '../services/account.service';
+import { SnackbarService } from '../services/snackbar.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AdminGuard implements CanActivate {
-  constructor(private accountService: AccountService, private router: Router) {
-  }
+export const adminGuard: CanActivateFn = (route, state) => {
+  const accountService = inject(AccountService);
+  const router = inject(Router);
+  const snack = inject(SnackbarService);
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> {
-    return this.accountService.isAdmin$.pipe(
-      map(admin => {
-        if (admin) {
-          return true;
-        }
-        this.router.navigateByUrl('/');
-      })
-    );
+  if (accountService.isAdmin()) {
+    return true;
+  } else {
+    snack.error('Nope');
+    router.navigateByUrl('/shop');
+    return false;
   }
-}
+};

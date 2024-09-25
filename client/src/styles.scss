@@ -1,64 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
-@import "../node_modules/bootswatch/dist/united/bootstrap.min.css";
-@import "../node_modules/font-awesome/css/font-awesome.min.css";
-@import "../node_modules/ngx-toastr/toastr.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+$customTheme: mat.define-theme();
 
-.xng-breadcrumb-root {
-    padding: 8px 16px;
-    display: inline;
-    border-radius: 0;
+@include mat.core();
+
+.custom-theme {
+    @include mat.all-component-themes($customTheme);
+
+    // override the button styles
+    .mdc-button, .mdc-raised-button, .mdc-stroked-button, .mdc-flat-button {
+        @apply rounded-md
+    }
 }
 
-label.xng-breadcrumb-trail {
-    margin-bottom: 0;
-    color: orange;
+.container {
+    @apply mx-auto max-w-screen-2xl
 }
 
-.xng-breadcrumb-separator {
-    padding: 0 0;
+.text-primary {
+    color: #7d00fa;
 }
 
-.StripeElement {
-    height: 3.125em;
+button.match-input-height {
+    height: var(--mat-form-field-container-height) !important;
 }
 
-// for photo
-.product-tabset > .nav-tabs > li.open > a, .product-tabset > .nav-tabs > li:hover > a {
-    border: 0;
-    background: none !important;
-    color: #333333;
-  }
-  
-  .product-tabset > .nav-tabs > li.open > a > i, .product-tabset > .nav-tabs > li:hover > a > i {
-    color: #a6a6a6;
-  }
-  
-  .product-tabset > .nav-tabs > li.open .dropdown-menu, .product-tabset > .nav-tabs > li:hover .dropdown-menu {
-    margin-top: 0px;
-  }
-  
-  .product-tabset > .nav-tabs > li.active {
-    border-bottom: 4px solid #E95420;
-    position: relative;
-  }
-  
-  .product-tabset > .nav-tabs > li.active > a {
-    border: 0 !important;
-    color: #333333;
-  }
-  
-  .product-tabset > .nav-tabs > li.active > a > i {
-    color: #404040;
-  }
-  
-  .product-tabset > .tab-content {
-    margin-top: -3px;
-    background-color: #fff;
-    border: 0;
-    border-top: 1px solid #eee;
-    padding: 15px 0;
-  }
+.mdc-notched-outline__notch {
+    border-right-style: none !important
+}
+
+.mat-mdc-snack-bar-container.snack-error {
+    --mdc-snackbar-container-color: red;
+    --mat-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.mat-mdc-snack-bar-container.snack-success {
+    --mdc-snackbar-container-color: green;
+    --mat-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+}
