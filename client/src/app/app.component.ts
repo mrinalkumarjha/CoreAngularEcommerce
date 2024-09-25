@@ -8,36 +8,22 @@ import { BasketService } from './basket/basket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  title = 'Skinet';
 
-  title = 'SkyNet';
-
-  constructor(private basketService: BasketService, private accountService: AccountService) {
-
-  }
+  constructor(private basketService: BasketService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.loadBasket();
     this.loadCurrentUser();
   }
 
-  loadCurrentUser(){
+  loadBasket() {
+    const basketId = localStorage.getItem('basket_id');
+    if (basketId) this.basketService.getBasket(basketId);
+  }
+
+  loadCurrentUser() {
     const token = localStorage.getItem('token');
-    this.accountService.loadCurrentUser(token).subscribe(() => {
-      }, error => {
-        console.log(error);
-      });
+    this.accountService.loadCurrentUser(token).subscribe();
   }
-
-  loadBasket(): void{
-        // checking basketid availablity in localstorage.
-        const basketId = localStorage.getItem('basket_id');
-        if (basketId) {
-          this.basketService.getBasket(basketId).subscribe(() => {
-          }, error => {
-            console.log(error);
-          });
-        }
-  }
-
-
 }

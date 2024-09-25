@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from 'src/app/shared/models/product';
-import { ShopService } from '../shop.service';
 import { ActivatedRoute } from '@angular/router';
-import { BreadcrumbService } from 'xng-breadcrumb';
+import { take } from 'rxjs';
 import { BasketService } from 'src/app/basket/basket.service';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions} from '@kolkov/ngx-gallery';
-
-
+import { Product } from 'src/app/shared/models/product';
+import { BreadcrumbService } from 'xng-breadcrumb';
+import { ShopService } from '../shop.service';
 
 @Component({
   selector: 'app-product-details',
@@ -14,76 +12,63 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOpt
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: IProduct;
+  product?: Product;
   quantity = 1;
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+  quantityInBasket = 0;
 
-  constructor(private shopService: ShopService,
-              private activateRoute: ActivatedRoute,
-              private bcService: BreadcrumbService,
-              private basketService: BasketService) {
+  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute, 
+    private bcService: BreadcrumbService, private basketService: BasketService) {
+      this.bcService.set('@productDetails', ' ')
+    }
 
-    this.bcService.set('@productDetails', '');
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadProduct();
   }
 
-  addItemToBasket(): void{
-    this.basketService.addItemToBasket(this.product, this.quantity);
+  loadProduct() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id) this.shopService.getProduct(+id).subscribe({
+      next: product => {
+        this.product = product;
+        this.bcService.set('@productDetails', product.name);
+        this.basketService.basketSource$.pipe(take(1)).subscribe({
+          next: basket => {
+            const item = basket?.items.find(x => x.id === +id);
+            if (item) {
+              this.quantity = item.quantity;
+              this.quantityInBasket = item.quantity;
+            }
+          }
+        })
+      },
+      error: error => console.log(error)
+    })
   }
 
-
-  incrementQuantity(): void{
+  incrementQuantity() {
     this.quantity++;
   }
 
-  decrementQuantity(): void {
-    if (this.quantity > 1) {
-      this.quantity--;
-    }
+  decrementQuantity() {
+    this.quantity--;
   }
 
-  loadProduct(): void {
-    this.shopService.getProduct(+this.activateRoute.snapshot.paramMap.get('id')).subscribe(product => {
-      this.product = product;
-      this.bcService.set('@productDetails', product.name);
-      this.initializeGallery();
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  initializeGallery() {
-    this.galleryOptions = [
-      {
-        width: '500px',
-        height: '600px',
-        imagePercent: 100,
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Fade,
-        imageSize: NgxGalleryImageSize.Contain,
-        thumbnailSize: NgxGalleryImageSize.Contain,
-        preview: false
+  updateBasket() {
+    if (this.product) {
+      if (this.quantity > this.quantityInBasket) {
+        const itemsToAdd = this.quantity - this.quantityInBasket;
+        this.quantityInBasket += itemsToAdd;
+        this.basketService.addItemToBasket(this.product, itemsToAdd);
+      } else {
+        const itemsToRemove = this.quantityInBasket - this.quantity;
+        this.quantityInBasket -= itemsToRemove;
+        this.basketService.removeItemFromBasket(this.product.id, itemsToRemove);
       }
-    ];
-    this.galleryImages = this.getImages();
-  }
-
-  getImages() {
-    const imageUrls = [];
-    for (const photo of this.product.photos) {
-      imageUrls.push({
-        small: photo.pictureUrl,
-        medium: photo.pictureUrl,
-        big: photo.pictureUrl,
-      });
     }
-    return imageUrls;
   }
 
-
+  get buttonText() {
+    return this.quantityInBasket === 0 ? 'Add to basket' : 'Update basket';
+  }
 
 }

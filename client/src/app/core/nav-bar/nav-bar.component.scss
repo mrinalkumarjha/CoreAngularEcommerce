@@ -3,7 +3,6 @@
     min-height: 25px;
     min-width: 25px;
     border-radius: 50%;
-    font-size: 1em;
     background: blue;
     color: white;
     text-align: center;
@@ -16,14 +15,10 @@ a {
     color: #343a40;
 
     &.active {
-        color: orange;
+        color: orange
     }
 }
 
 .logo {
     cursor: pointer;
-
-    &:focus {
-        outline: none;
-    }
 }

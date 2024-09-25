@@ -1,27 +1,17 @@
-<div class="d-flex justify-content-center mt-">
-
-    <div class="col-3 mt-5">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="text-center mb-4">
-                <h1 class="h3 fw-normal">Login</h1>
-            </div>
-           
-          <app-text-input formControlName="email" [label]="'Email Address'"></app-text-input>
-          <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
+<div class="d-flex justify-content-center mt-5">
+  <div class="col-3">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="text-center mb-4">
+        <h1 class="mb-3">Login</h1>
+      </div>
       
-          <button [disabled]="loginForm.invalid" class="w-100 btn btn-lg btn-primary mt-3" type="submit" >Sign in</button>
+      <app-text-input [formControl]="loginForm.controls['email']" [label]="'Email Address'"></app-text-input>
+      <app-text-input [formControl]="loginForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
 
-        </form>
-    </div>
-    <!-- <div class="col-4">
-        <p>form status : {{loginForm.status}}</p>
-        <p>email status : {{loginForm.get('email').status}}</p>
-        <p>email touched : {{loginForm.get('email').touched}}</p>
-        <p>email dirty : {{loginForm.get('email').dirty}}</p>
+      <div class="d-grid">
+        <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Sign in</button>
+      </div>
+    </form>
+  </div>
 
-        <pre>
-            {{loginForm.value | json}}
-        </pre>
-
-    </div> -->
 </div>

@@ -1,32 +1,23 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-8">
-            <!-- if linear mode is on we cannot go to next stepper untill one is valid -->
-           <app-stepper [linearModeSelected]="true" #appSteper>
-               <cdk-step [label]="'Address'" [completed]="(checkOutForm.get('addressForm')).valid">
-                    <app-checkout-address [checkoutForm]="checkOutForm"></app-checkout-address>
-               </cdk-step>
-
-                <cdk-step [label]="'Delivery'" [completed]="(checkOutForm.get('deliveryForm')).valid">
-                     <app-checkout-delivery [checkoutForm]="checkOutForm"></app-checkout-delivery>
+            <app-stepper #appStepper>
+                <cdk-step [label]="'Address'" [completed]="checkoutForm.get('addressForm')?.valid">
+                    <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
                 </cdk-step>
-
+                <cdk-step [label]="'Delivery'" [completed]="checkoutForm.get('deliveryForm')?.valid">
+                    <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
+                </cdk-step>
                 <cdk-step [label]="'Review'">
-                    <app-checkout-review [appSteper]="appSteper"></app-checkout-review>
+                    <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
                 </cdk-step>
-
-                <cdk-step [label]="'Payment'">
-                    <app-checkout-payment  [checkoutForm] ="checkOutForm"> </app-checkout-payment>
+                <cdk-step [label]="'Payment'" [completed]="checkoutForm.get('paymentForm')?.valid">
+                    <app-checkout-payment [checkoutForm]="checkoutForm"></app-checkout-payment>
                 </cdk-step>
-           </app-stepper>
+            </app-stepper>
         </div>
         <div class="col-4">
-            <app-order-totals
-            *ngIf="(basketTotals$ | async)"
-            [shippingPrice]="(basketTotals$ | async).shipping"
-            [subtotal]="(basketTotals$ | async).subtotal"
-            [total]="(basketTotals$ | async).total"
-        ></app-order-totals>
+            <app-order-totals></app-order-totals>
         </div>
     </div>
 </div>
