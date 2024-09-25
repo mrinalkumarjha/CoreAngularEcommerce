@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AccountService } from '../account/account.service';
 import { BasketService } from '../basket/basket.service';
@@ -13,10 +13,10 @@ import { IBasketTotals } from '../shared/models/basket';
 })
 export class CheckoutComponent implements OnInit {
 
-  checkOutForm: FormGroup;
+  checkOutForm: UntypedFormGroup;
   basketTotals$: Observable<IBasketTotals>;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService,
+  constructor(private fb: UntypedFormBuilder, private accountService: AccountService,
     private basketService: BasketService) { }
 
   ngOnInit(): void {

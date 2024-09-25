@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   returnUrl: string;
 
   constructor(private accountService: AccountService, private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   createLoginForm(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators
         .pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
-      password: new FormControl('', Validators.required)
+      password: new UntypedFormControl('', Validators.required)
     });
   }
 
